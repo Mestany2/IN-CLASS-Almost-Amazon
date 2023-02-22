@@ -1,4 +1,4 @@
-import { getAuthors } from '../api/authorData';
+import { getAuthors, getFavAuthors } from '../api/authorData';
 import { booksOnSale, getBooks } from '../api/bookData';
 import { showAuthors } from '../pages/authors';
 import { showBooks } from '../pages/books';
@@ -28,6 +28,10 @@ const navigationEvents = () => {
     getAuthors().then(showAuthors);
   });
 
+  // Favorite authors
+  document.querySelector('#fav-authors').addEventListener('click', () => {
+    getFavAuthors().then(showAuthors);
+  });
   // STRETCH: SEARCH
   document.querySelector('#search').addEventListener('keyup', (e) => {
     const searchValue = document.querySelector('#search').value.toLowerCase();
