@@ -23,7 +23,7 @@ const showBooks = (array) => {
             <hr>
             <i class="btn btn-success fas fa-eye" id="view-book-btn--${item.firebaseKey}"></i>
             <i id="edit-book-btn--${item.firebaseKey}" class="fas fa-edit btn btn-info"></i>
-            <i id="delete-book-btn--${item.firebaseKey}" class="btn btn-danger fas fa-trash-alt"></i>
+            <i id="delete-book-btn--${item.firebaseKey}" class="btn btn-danger fas fa-trash"></i>
         </div>
       </div>`;
   });
