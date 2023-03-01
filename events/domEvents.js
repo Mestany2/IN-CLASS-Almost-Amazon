@@ -62,7 +62,7 @@ const domEvents = (user) => {
     }
 
     if (e.target.id.includes('view-author-btn')) {
-      console.warn('VIEW BOOK', e.target.id);
+      console.warn('VIEW author', e.target.id);
       const [, firebaseKey] = e.target.id.split('--');
       getAuthorDetails(firebaseKey).then(viewAuthor);
     }

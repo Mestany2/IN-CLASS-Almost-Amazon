@@ -23,7 +23,7 @@ const deleteAuthorBooksRelationship = (firebaseKey) => new Promise((resolve, rej
 });
 
 const getAuthorDetails = (firebaseKey) => new Promise((resolve, reject) => {
-  // GET SINGLE BOOK
+  // GET Author BOOKs
   getAuthorBooks(firebaseKey).then((bookObject) => { // returns single book object
     getSingleAuthor(bookObject.author_id) // we nest this promise so that we can use the book object
       .then((authorObject) => resolve({ ...bookObject, authorObject }));
