@@ -14,7 +14,7 @@ const selectAuthor = (authorId, user) => {
           <option 
             value="${author.firebaseKey}" 
             ${authorId === author.firebaseKey ? 'selected' : ''}>
-              ${author.first_name} ${author.last_name}npm 
+              ${author.first_name} ${author.last_name} 
           </option>`;
     });
 
