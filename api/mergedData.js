@@ -23,13 +23,20 @@ const deleteAuthorBooksRelationship = (firebaseKey) => new Promise((resolve, rej
 });
 
 const getAuthorDetails = (firebaseKey) => new Promise((resolve, reject) => {
-  // GET Author BOOKs
-  getAuthorBooks(firebaseKey).then((bookObject) => { // returns single book object
-    getSingleAuthor(bookObject.author_id) // we nest this promise so that we can use the book object
-      .then((authorObject) => resolve({ ...bookObject, authorObject }));
+  getAuthorBooks(firebaseKey).then((bookObject) => {
+    const booksInside = bookObject.map((book) => getSingleBook(book.firebaseKey));
+    Promise.all(booksInside).then(() => {
+      getSingleAuthor(firebaseKey).then((authorObject) => resolve({ bookObject, authorObject }));
+    });
   }).catch(reject);
-  // GET AUTHOR
-  // Create an object that has book data and an object named authorObject
 });
 
 export { getBookDetails, deleteAuthorBooksRelationship, getAuthorDetails };
+
+// const getAuthorDetails = (firebaseKey) => new Promise((resolve, reject) => {
+//   getAuthorBooks(firebaseKey).then((bookObject) => {
+//     for (const item in bookObject.author) {
+//       getSingleAuthor(item.author_id).then((authorObject) => resolve({ ...bookObject, authorObject }));
+//     }
+//   }).catch(reject);
+// });

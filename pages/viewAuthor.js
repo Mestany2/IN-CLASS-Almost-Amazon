@@ -2,25 +2,31 @@ import clearDom from '../utils/clearDom';
 import renderToDOM from '../utils/renderToDom';
 
 const viewAuthor = (obj) => {
-  console.warn(obj);
+  console.warn('my obj is', obj);
   clearDom();
 
-  const domString = `
-  <div class="mt-5 d-flex flex-wrap">
-   <div class="d-flex flex-column">
-     <img src=${obj.image} alt=${obj.title} style="width: 300px;">
-     <div class="mt-5">
-       <i id="edit-book-btn--${obj.firebaseKey}" class="fas fa-edit btn btn-info"></i>
-       <i id="delete-book--${obj.firebaseKey}" class="btn btn-danger fas fa-trash-alt"></i>
-     </div>
-   </div>
+  let domString = `
    <div class="text-white ms-5 details">
-     <p>${obj.description || ''}</p>
-     <hr>
-     <p>${obj.sale ? `<span class="badge bg-info sale-badge"><i class="fa fa-bell" aria-hidden="true"></i> Sale</span> 
-       $${obj.price}` : `$${obj.price}`}</p>      
+     <h5> Written by ${obj.authorObject.first_name} ${obj.authorObject.last_name} ${obj.authorObject.favorite ? '<span class="badge bg-danger"><i class="fa fa-heart" aria-hidden="true"></i></span>' : ''}</h5>
+     Author Email: <a href="mailto:${obj.authorObject.email}">${obj.authorObject.email}</a>    
       </div>
     </div>`;
+  obj.bookObject.forEach((item) => {
+    domString += `
+    <div class="mt-5 d-flex flex-wrap flex-column">
+      <div class="card">
+        <img class="card-img-top" src=${item.image} alt=${item.title} style="height: 400px;">
+        <div class="card-body" style="height: 180px;">
+          <h5 class="card-title">${item.title}</h5>
+            <p class="card-text bold">${item.sale ? `<span class="badge badge-info sale-badge"><i class="fa fa-bell" aria-hidden="true"></i> Sale</span> $${item.price}` : `$${item.price}`}</p>
+            <hr>
+            <i class="btn btn-success" id="view-book-btn--${item.firebaseKey}">View</i>
+            <i id="edit-book-btn--${item.firebaseKey}" class="btn btn-info">Edit</i>
+            <i id="delete-book-btn--${item.firebaseKey}" class="btn btn-danger">Delete</i>
+        </div>
+        </div>
+      </div>`;
+  });
 
   renderToDOM('#view', domString);
 };
